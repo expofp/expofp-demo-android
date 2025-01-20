@@ -5,16 +5,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 public class ListActivity extends AppCompatActivity {
 
@@ -54,17 +48,13 @@ public class ListActivity extends AppCompatActivity {
                 android.R.layout.simple_list_item_1, items);
 
         listView.setAdapter(adapter);
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String itm = items[position];
-                Intent intent = new Intent(context, FplanActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-                intent.putExtra("COMMAND", command);
-                intent.putExtra("DATA", itm);
-                startActivity(intent);
-                //finish();
-            }
+        listView.setOnItemClickListener((parent, view, position, id) -> {
+            String itm = items[position];
+            Intent intent = new Intent(context, FplanActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+            intent.putExtra("COMMAND", command);
+            intent.putExtra("DATA", itm);
+            startActivity(intent);
         });
     }
 }
